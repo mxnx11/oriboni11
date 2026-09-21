@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartita</title>
+    <style>
+        /* Fondo Galaxia de Súper Alta Intensidad */
+        body {
+            background-color: #020208;
+            /* Nebulosas mucho más densas y saturadas */
+            background-image: 
+                radial-gradient(at 15% 20%, rgba(130, 40, 220, 0.45) 0px, transparent 45%), 
+                radial-gradient(at 85% 30%, rgba(0, 150, 255, 0.4) 0px, transparent 50%),  
+                radial-gradient(at 50% 80%, rgba(230, 30, 130, 0.3) 0px, transparent 45%),
+                radial-gradient(at 75% 85%, rgba(0, 200, 200, 0.25) 0px, transparent 40%);  
+            font-family: 'Georgia', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .espacio {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* === ESTRELLAS FIJAS CON BRILLO INTENSO === */
+        .estrella-fija {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            /* Brillo de luz blanca */
+            box-shadow: 0 0 4px #fff, 0 0 8px rgba(255, 255, 255, 0.6);
+            animation: parpadeo var(--duracion, 2s) infinite ease-in-out;
+            opacity: var(--opacidad, 0.8);
+        }
+
+        /* Variación para estrellas gigantes con destello */
+        .grande {
+            box-shadow: 0 0 8px #fff, 0 0 15px #fff, 0 0 25px rgba(255, 255, 255, 0.9);
+        }
+
+        @keyframes parpadeo {
+            0%, 100% { opacity: 0.15; transform: scale(0.9); }
+            50% { opacity: var(--opacidad, 1); transform: scale(1.1); }
+        }
+
+        /* === ESTRELLAS FUGACES MÁS VISIBLES === */
+        .estrella-fugaz {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #fff, 0 0 30px #fff;
+            animation: fugaz 6s linear infinite;
+            opacity: 0;
+        }
+
+        .estrella-fugaz::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, #ffffff, transparent);
+        }
+
+        .ef1 { top: 10%; left: -150px; animation-delay: 0s; animation-duration: 4s; }
+        .ef2 { top: 40%; left: -150px; animation-delay: 2.5s; animation-duration: 5.5s; }
+        .ef3 { top: 70%; left: -150px; animation-delay: 1s; animation-duration: 4.5s; }
+        .ef4 { top: 85%; left: -150px; animation-delay: 4s; animation-duration: 6s; }
+
+        @keyframes fugaz {
+            0% { transform: translateX(0) translateY(0) rotate(30deg); opacity: 1; }
+            50% { opacity: 1; }
+            100% { transform: translateX(130vw) translateY(65vh) rotate(30deg); opacity: 0; }
+        }
+
+        /* === DISEÑO DE LA CARTA === */
+        .carta {
+            background-color: rgba(255, 255, 255, 0.92); 
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(130, 40, 220, 0.3);
+            border-radius: 16px;
+            position: relative;
+            z-index: 2;
+            border-left: 6px solid #8228dc;
+            backdrop-filter: blur(8px);
+        }
+
+        .fecha { text-align: right; color: #555; margin-bottom: 30px; font-style: italic; }
+        .saludo { font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; color: #111; }
+        .contenido { font-size: 1.1rem; line-height: 1.8; color: #222; text-align: justify; white-space: pre-line; }
+        .despedida { margin-top: 40px; font-size: 1.1rem; color: #111; }
+        .firma { margin-top: 10px; font-family: 'Brush Script MT', 'Comic Sans MS', cursive; font-size: 1.8rem; color: #000; }
+    </style>
+</head>
+<body>
+
+    <div class="espacio">
+        <!-- ESTRELLAS GRANDES / BRILLANTES (Destellos cian y blanco) -->
+        <div class="estrella-fija grande" style="top: 15%; left: 12%; width: 4px; height: 4px; --duracion: 2.5s; --opacidad: 1; background: #e0f7ff;"></div>
+        <div class="estrella-fija grande" style="top: 35%; left: 85%; width: 5px; height: 5px; --duracion: 3.2s; --opacidad: 0.9;"></div>
+        <div class="estrella-fija grande" style="top: 65%; left: 8%; width: 4px; height: 4px; --duracion: 1.8s; --opacidad: 1;"></div>
+        <div class="estrella-fija grande" style="top: 80%; left: 75%; width: 5px; height: 5px; --duracion: 4s; --opacidad: 0.95; background: #ffe0f5;"></div>
+        <div class="estrella-fija grande" style="top: 50%; left: 45%; width: 4px; height: 4px; --duracion: 2.2s; --opacidad: 0.85;"></div>
+
+        <!-- ESTRELLAS MEDIANAS -->
+        <div class="estrella-fija" style="top: 5%; left: 30%; width: 2.5px; height: 2.5px; --duracion: 1.5s;"></div>
+        <div class="estrella-fija" style="top: 8%; left: 70%; width: 3px; height: 3px; --duracion: 2.8s;"></div>
+        <div class="estrella-fija" style="top: 22%; left: 40%; width: 2.5px; height: 2.5px; --duracion: 2.1s;"></div>
+        <div class="estrella-fija" style="top: 28%; left: 95%; width: 3px; height: 3px; --duracion: 3.5s;"></div>
+        <div class="estrella-fija" style="top: 45%; left: 18%; width: 2.5px; height: 2.5px; --duracion: 1.9s;"></div>
+        <div class="estrella-fija" style="top: 55%; left: 88%; width: 3px; height: 3px; --duracion: 2.4s;"></div>
+        <div class="estrella-fija" style="top: 60%; left: 30%; width: 2.5px; height: 2.5px; --duracion: 3.1s;"></div>
+        <div class="estrella-fija" style="top: 75%; left: 92%; width: 3px; height: 3px; --duracion: 1.7s;"></div>
+        <div class="estrella-fija" style="top: 90%; left: 25%; width: 2.5px; height: 2.5px; --duracion: 2.6s;"></div>
+        <div class="estrella-fija" style="top: 95%; left: 60%; width: 3px; height: 3px; --duracion: 4s;"></div>
+
+        <!-- POLVO CÓSMICO (Micro estrellas densas) -->
+        <div class="estrella-fija" style="top: 3%; left: 85%; width: 1px; height: 1px; --duracion: 3s; --opacidad: 0.5;"></div>
+        <div class="estrella-fija" style="top: 12%; left: 55%; width: 1.5px; height: 1.5px; --duracion: 1.2s; --opacidad: 0.6;"></div>
+        <div class="estrella-fija" style="top: 18%; left: 22%; width: 1px; height: 1px; --duracion: 2.5s; --opacidad: 0.4;"></div>
+        <div class="estrella-fija" style="top: 25%; left: 68%; width: 1.5px; height: 1.5px; --duracion: 4s; --opacidad: 0.7;"></div>
+        <div class="estrella-fija" style="top: 32%; left: 10%; width: 1px; height: 1px; --duracion: 1.7s; --opacidad: 0.5;"></div>
+        <div class="estrella-fija" style="top: 42%; left: 75%; width: 1.5px; height: 1.5px; --duracion: 2.9s; --opacidad: 0.6;"></div>
+        <div class="estrella-fija" style="top: 48%; left: 92%; width: 1px; height: 1px; --duracion: 3.3s; --opacidad: 0.4;"></div>
+        <div class="estrella-fija" style="top: 52%; left: 5%; width: 1.5px; height: 1.5px; --duracion: 2.2s; --opacidad: 0.7;"></div>
+        <div class="estrella-fija" style="top: 58%; left: 50%; width: 1px; height: 1px; --duracion: 1.4s; --opacidad: 0.5;"></div>
+        <div class="estrella-fija" style="top: 68%; left: 80%; width: 1.5px; height: 1.5px; --duracion: 3.8s; --opacidad: 0.6;"></div>
+        <div class="estrella-fija" style="top: 72%; left: 35%; width: 1px; height: 1px; --duracion: 2.7s; --opacidad: 0.4;"></div>
+        <div class="estrella-fija" style="top: 78%; left: 58%; width: 1.5px; height: 1.5px; --duracion: 1.1s; --opacidad: 0.7;"></div>
+        <div class="estrella-fija" style="top: 83%; left: 18%; width: 1px; height: 1px; --duracion: 4.2s; --opacidad: 0.5;"></div>
+        <div class="estrella-fija" style="top: 88%; left: 42%; width: 1.5px; height: 1.5px; --duracion: 2.3s; --opacidad: 0.6;"></div>
+        <div class="estrella-fija" style="top: 93%; left: 88%; width: 1px; height: 1px; --duracion: 3.1s; --opacidad: 0.4;"></div>
+        <div class="estrella-fija" style="top: 97%; left: 12%; width: 1.5px; height: 1.5px; --duracion: 1.6s; --opacidad: 0.7;"></div>
+
+        <!-- CUATRO ESTRELLAS FUGACES SIMULTÁNEAS -->
+        <div class="estrella-fugaz ef1"></div>
+        <div class="estrella-fugaz ef2"></div>
+        <div class="estrella-fugaz ef3"></div>
+        <div class="estrella-fugaz ef4"></div>
+    </div>
+
+    <!-- ESTRUCTURA DE LA CARTA -->
+       <!-- Estructura de la carta -->
+    <div class="carta">
+        <div class="fecha">21 de septiembre de 2026</div>
+        
+        <div class="saludo">Gloria...</div>
+        
+        <div class="contenido">
+
+Te voy a ser completamente honesto: hoy, en verdad, me pesó muchísimo el día.
+
+Creo que, de una u otra forma, terminaste apareciendo en cada momento. En las cosas pequeñas, en esos instantes en los que uno quisiera tener a cierta persona cerca para contarle cualquier tontería, para escucharla, para verla sonreír. Y fue inevitable pensar en ti, en todo lo que me gustaría decirte y en todas esas cosas que todavía me nacen cuando pienso en nosotros.
+
+Me dieron ganas de halagarte, de decirte cuánto te adoro, de contarte cuánto me haces falta… pero sobre todo me dieron ganas de tenerte cerca. Aunque fuera por un momento. Aunque fuera simplemente para sentir que, por un instante, todo vuelve a sentirse como antes.
+
+Y sí, ha sido difícil.
+
+Porque hay cosas que uno puede intentar guardar, distraer o hacer a un lado, pero no por eso desaparecen. Hay sentimientos que siguen encontrando la manera de hacerse presentes, incluso cuando uno intenta convencerse de que ya debería ser diferente.
+
+Por eso también quiero pedirte perdón si alguna vez esto llega a incomodarte. No quiero ponerte ningún peso encima ni hacerte sentir que tienes que responderme de alguna manera. Mucho menos quiero que sientas que estoy intentando pasar por encima de lo que decidiste.
+
+Lo respeto.
+
+Pero respetar una decisión no significa que de un día para otro deje de sentir lo que siento.
+
+Y creo que eso es lo que todavía estoy aprendiendo a entender que puedo aceptar dónde estamos ahora sin tener que convencerme de que esto es necesariamente donde tenemos que quedarnos.
+
+Porque hay una parte de mí que todavía recuerda todo lo que fuimos y, más que recordar, todavía puede imaginar todo lo que podríamos volver a ser.
+
+No sé qué vaya a pasar. No quiero prometerte que las cosas serán exactamente como antes, porque quizá no deberían serlo. Quizá, si algún día volvemos a encontrarnos de la misma manera, tendría que ser para construir algo distinto, algo mejor, algo que nazca de todo lo que aprendimos estando separados.
+
+Solo sé que todavía no siento que nuestra historia sea algo que deba guardar en una caja y cerrar para siempre.
+
+Quizá porque todavía te quiero.
+
+Quizá porque todavía hay momentos en los que quisiera contarte algo y, por un segundo, mi primer impulso sigue siendo buscarte.
+
+O quizá simplemente porque hay personas que, incluso cuando dejan de estar a nuestro lado, siguen teniendo una forma muy particular de estar presentes.
+
+Y tú sigues estando.
+
+No te escribo esto para pedirte una respuesta, ni para hacerte cambiar de opinión hoy. Te lo escribo porque sería mentirme decir que ya no siento nada, cuando la verdad es que todavía hay muchísimo dentro de mí.
+
+Y si llega haber algun momento en el que nos vuelve a poner en el mismo lugar, me gustaría que no llegáramos como dos personas que simplemente intentaron olvidarse, sino como dos personas que todavía recuerdan por qué alguna vez eligieron quedarse.
+
+No sé si ese momento llegará mañana, pasado, la siguiente semana.
+
+Pero, por ahora, tampoco quiero fingir que no me gustaría que llegara.
+
+
+        </div>
+        
+        <div class="despedida">Te quiere</div>
+        <div class="firma">Héctor</div>
+    </div>
+
+</body>
+</html>
